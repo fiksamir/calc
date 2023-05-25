@@ -1,12 +1,11 @@
 
 use std::io;
 
-fn main() {
-    println!("Please input first number.");
-
-    let mut first_number = String::new();
-    
+fn main() {        
     loop{ 
+        println!("Please input first number.");
+
+        let mut first_number = String::new();
         io::stdin()
             .read_line(&mut first_number)
             .expect("Failed to read line");
