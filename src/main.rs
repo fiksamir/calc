@@ -1,5 +1,7 @@
 
 use std::io;
+use std::io::Write;
+
 #[derive(Debug)]
 enum Actions {
     Add,
@@ -26,9 +28,11 @@ fn get_result(x:f64, y:f64, action:Actions) -> Result<f64, &'static str>{
 
 fn main() {        
     loop{ 
-        println!("Please input first number:");
+        print!("Please input first number:");
 
+        let _ = io::stdout().flush();
         let mut x = String::new();
+
         io::stdin()
             .read_line(&mut x)
             .expect("Failed to read line");
@@ -41,8 +45,9 @@ fn main() {
                 continue
             }
         };
-        println!("Please input second number:");
+        print!("Please input second number:");
 
+        let _ = io::stdout().flush();
         let mut y = String::new();
 
         io::stdin()
@@ -57,8 +62,9 @@ fn main() {
             }
         };
 
-        println!("Please choose action: \"+\", \"-\", \"/\", \"*\":"); 
+        print!("Please choose action: \"+\", \"-\", \"/\", \"*\":"); 
 
+        let _ = io::stdout().flush();
         let mut action = String::new();
         io::stdin()
             .read_line(&mut action)
@@ -66,7 +72,7 @@ fn main() {
         let action = action.trim(); 
 
         match action {
-            "+" => println!("{:?} + {:?} = {:?}",x, y, get_result(x, y, Actions::Add) ),
+            "+" => println!("{:?} + {:?} = {:?}",x, y, get_result(x,y,Actions::Add)),
             "-" => println!("{:?} - {:?} = {:?}",x, y, get_result(x, y, Actions::Substr)),
             "/" => println!("{:?} / {:?} = {:?}",x, y, get_result(x, y, Actions::Div)), 
             "*" => println!("{:?} * {:?} = {:?}",x, y, get_result(x, y, Actions::Mult)),
