@@ -1,56 +1,80 @@
 
 use std::io;
+#[derive(Debug)]
+enum Actions {
+    Add,
+    Substr,
+    Mult,
+    Div,
+}
+
+fn get_result(x:f64, y:f64, action:Actions) -> Result<f64, &'static str>{
+
+    match action {
+        Actions::Add => Ok(x + y),
+        Actions::Substr => Ok(x - y),
+        Actions::Mult => Ok(x * y),
+        Actions::Div => {
+            if y == 0.0 {
+                Err("Division by zero")
+            } else {
+                Ok(x / y)
+            }
+        }           
+    }
+}
 
 fn main() {        
     loop{ 
-        println!("Please input first number.");
+        println!("Please input first number:");
 
-        let mut first_number = String::new();
+        let mut x = String::new();
         io::stdin()
-            .read_line(&mut first_number)
+            .read_line(&mut x)
+            .expect("Failed to read line");
+            
+
+        let x: f64 = match x.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Error, this is not a number.");
+                continue
+            }
+        };
+        println!("Please input second number:");
+
+        let mut y = String::new();
+
+        io::stdin()
+            .read_line(&mut y)
             .expect("Failed to read line");
 
-        let first_number: f32 = match first_number.trim().parse() {
+        let y: f64 = match y.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue,
-        };
-        println!("Please input second number.");
-
-        let mut second_number = String::new();
-
-        io::stdin()
-            .read_line(&mut second_number)
-            .expect("Failed to read line");
-
-        let second_number: f32 = match second_number.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
+            Err(_) => {
+                println!("Error, this is not a number.");
+                continue
+            }
         };
 
-        println!("Please chose action: 1:\"+\", 2:\"-\", 3:\"/\", 4:\"*\""); 
+        println!("Please choose action: \"+\", \"-\", \"/\", \"*\":"); 
 
         let mut action = String::new();
-
         io::stdin()
             .read_line(&mut action)
-            .expect("Failed to read line");   
-
-        let action: u8 = match action.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
+            .expect("Failed to read line");  
+        let action = action.trim(); 
 
         match action {
-            1 => println!("{:?} + {:?} = {:?}",first_number, second_number, first_number + second_number),
-            2 => println!("{:?} - {:?} = {:?}",first_number, second_number, first_number - second_number),
-            3 => println!("{:?} / {:?} = {:?}",first_number, second_number, first_number / second_number),
-            4 => println!("{:?} * {:?} = {:?}",first_number, second_number, first_number * second_number),
+            "+" => println!("{:?} + {:?} = {:?}",x, y, get_result(x, y, Actions::Add) ),
+            "-" => println!("{:?} - {:?} = {:?}",x, y, get_result(x, y, Actions::Substr)),
+            "/" => println!("{:?} / {:?} = {:?}",x, y, get_result(x, y, Actions::Div)), 
+            "*" => println!("{:?} * {:?} = {:?}",x, y, get_result(x, y, Actions::Mult)),
             _ => {
                 println!("Wrong action!");
-                break;
+                continue;
             }
         }
-
         break;
     }
     
