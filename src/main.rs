@@ -72,10 +72,22 @@ fn main() {
         let action = action.trim(); 
 
         match action {
-            "+" => println!("{:?} + {:?} = {:?}",x, y, get_result(x,y,Actions::Add)),
-            "-" => println!("{:?} - {:?} = {:?}",x, y, get_result(x, y, Actions::Substr)),
-            "/" => println!("{:?} / {:?} = {:?}",x, y, get_result(x, y, Actions::Div)), 
-            "*" => println!("{:?} * {:?} = {:?}",x, y, get_result(x, y, Actions::Mult)),
+            "+" => match get_result(x, y, Actions::Add)  {
+                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Err(e) => println!("{}", e),                
+            }, 
+            "-" => match get_result(x, y, Actions::Substr)  {
+                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Err(e) => println!("{}", e),                
+            }, 
+            "/" => match get_result(x, y, Actions::Div)  {
+                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Err(e) => println!("{}", e),                
+            }, 
+            "*" => match get_result(x, y, Actions::Mult)  {
+                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Err(e) => println!("{}", e),                
+            }, 
             _ => {
                 println!("Wrong action!");
                 continue;
