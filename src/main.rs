@@ -77,15 +77,15 @@ fn main() {
                 Err(e) => println!("{}", e),                
             }, 
             "-" => match get_result(x, y, Actions::Substr)  {
-                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Ok(num) => println!("{} - {} = {}",x, y, num),
                 Err(e) => println!("{}", e),                
             }, 
             "/" => match get_result(x, y, Actions::Div)  {
-                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Ok(num) => println!("{} / {} = {}",x, y, num),
                 Err(e) => println!("{}", e),                
             }, 
             "*" => match get_result(x, y, Actions::Mult)  {
-                Ok(num) => println!("{} + {} = {}",x, y, num),
+                Ok(num) => println!("{} * {} = {}",x, y, num),
                 Err(e) => println!("{}", e),                
             }, 
             _ => {
